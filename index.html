@@ -261,9 +261,9 @@ section{scroll-margin-top:80px}
 .bf-head{flex:none;display:grid;gap:12px;margin-bottom:26px;font-size:15px;font-weight:500;color:rgba(255,236,228,.8)}
 .bf-bar{height:4px;border-radius:4px;background:rgba(255,236,228,.16);overflow:hidden}
 .bf-bar span{display:block;height:100%;width:25%;background:#fbf3ea;border-radius:4px;transition:width .45s cubic-bezier(.2,.7,.2,1)}
-.bf-body{display:grid}
-.bf-body > *{grid-area:1/1;min-width:0}
-.bf-step:not(.active),.bf-body > .bf-done:not(.active){visibility:hidden;pointer-events:none}
+.bf-body{position:relative;overflow:hidden;transition:height .45s cubic-bezier(.2,.7,.2,1)}
+.bf-step:not(.active),.bf-body > .bf-done:not(.active){display:none}
+@media (prefers-reduced-motion:reduce){.bf-body{transition:none}}
 .bf-step{border:0;margin:0;padding:0 0 4px;min-width:0;display:grid;gap:14px;align-content:start}
 @media (prefers-reduced-motion:no-preference){.bf-step.enter{animation:bfIn .4s cubic-bezier(.2,.7,.2,1) both}.bf-step.enter.back{animation-name:bfInBack}}
 @keyframes bfIn{from{opacity:0;translate:24px 0}to{opacity:1;translate:0 0}}
@@ -1015,7 +1015,20 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
     const picked = name => [...form.querySelectorAll(`.chips[data-name="${name}"] .chip[aria-pressed="true"]`)].map(c => c.dataset.v);
     let cur = 0;
     const body = document.getElementById('bfBody');
-    function show(i){
+    function fit(swap){
+      const from = body.offsetHeight;
+      swap();
+      body.style.height = 'auto';
+      const to = body.offsetHeight;
+      if (from === to || reduce) { body.style.height = ''; return; }
+      body.style.height = from + 'px';
+      void body.offsetHeight;
+      body.style.height = to + 'px';
+      const done = e => { if (e.target !== body) return; body.style.height = ''; body.removeEventListener('transitionend', done); };
+      body.addEventListener('transitionend', done);
+    }
+    function show(i){ fit(() => showNow(i)); }
+    function showNow(i){
       const dir = i < cur ? 'back' : 'fwd';
       cur = i;
       steps.forEach((st, k) => { const on = k === i; st.classList.toggle('active', on); st.inert = !on; st.classList.remove('enter','back'); });
@@ -1052,9 +1065,11 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
       try {
         const r = await fetch('/api/booking', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
         if (!r.ok) throw new Error(r.status);
-        steps.forEach(st => { st.classList.remove('active'); st.inert = true; });
-        document.getElementById('bfNav').hidden = true;
-        document.getElementById('bfDone').classList.add('active'); document.getElementById('bfDone').inert = false;
+        fit(() => {
+          steps.forEach(st => { st.classList.remove('active'); st.inert = true; });
+          document.getElementById('bfNav').hidden = true;
+          document.getElementById('bfDone').classList.add('active'); document.getElementById('bfDone').inert = false;
+        });
         label.textContent = 'Klart'; bar.style.width = '100%';
       } catch (e) {
         document.getElementById('bfFail').hidden = false;
@@ -1062,7 +1077,7 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
     };
     form.addEventListener('submit', e => e.preventDefault());
     document.getElementById('bfDone').inert = true;
-    groups(); show(0);
+    groups(); showNow(0);
   })();
 })();
 </script>
