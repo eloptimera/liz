@@ -34,6 +34,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--ink);color:var(--bone);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
@@ -256,11 +257,15 @@ section{scroll-margin-top:80px}
 .how p{margin-top:4px;color:rgba(255,236,228,.78);max-width:44ch}
 .book-alt{margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,236,228,.2);color:rgba(255,236,228,.75);display:grid;gap:4px}
 .book-alt a{color:#fbf3ea;text-underline-offset:3px}
-.bform{position:relative;border-radius:28px;padding:clamp(24px,3.6vw,48px);background:rgba(13,11,10,.62);border:1px solid rgba(255,236,228,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
-.bf-head{display:grid;gap:12px;margin-bottom:30px;font-size:15px;font-weight:500;color:rgba(255,236,228,.8)}
+.bform{position:relative;display:flex;flex-direction:column;height:clamp(560px,74vh,660px);border-radius:28px;padding:clamp(24px,3.6vw,48px);background:rgba(13,11,10,.62);border:1px solid rgba(255,236,228,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.bf-head{flex:none;display:grid;gap:12px;margin-bottom:26px;font-size:15px;font-weight:500;color:rgba(255,236,228,.8)}
 .bf-bar{height:4px;border-radius:4px;background:rgba(255,236,228,.16);overflow:hidden}
 .bf-bar span{display:block;height:100%;width:25%;background:#fbf3ea;border-radius:4px;transition:width .45s cubic-bezier(.2,.7,.2,1)}
-.bf-step{border:0;margin:0;padding:0;min-width:0;display:grid;gap:14px}
+.bf-body{position:relative;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin-inline:-6px;padding-inline:6px;scrollbar-width:thin;scrollbar-color:rgba(255,236,228,.3) transparent}
+.bf-step{border:0;margin:0;padding:0 0 4px;min-width:0;display:grid;gap:14px;align-content:start}
+@media (prefers-reduced-motion:no-preference){.bf-step.enter{animation:bfIn .4s cubic-bezier(.2,.7,.2,1) both}.bf-step.enter.back{animation-name:bfInBack}}
+@keyframes bfIn{from{opacity:0;translate:24px 0}to{opacity:1;translate:0 0}}
+@keyframes bfInBack{from{opacity:0;translate:-24px 0}to{opacity:1;translate:0 0}}
 .bf-step legend{padding:0;margin-bottom:10px;display:grid;gap:6px}
 .bf-q{font:400 clamp(30px,3.2vw,42px)/1.05 var(--f-display);color:#fbf3ea}
 .bf-hint{color:rgba(255,236,228,.7);font-size:16px}
@@ -278,11 +283,12 @@ textarea.bf-input{resize:vertical;min-height:110px}
 .bf-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
 .bf-fields .full{grid-column:1/-1}
 @media (max-width:520px){.bf-fields{grid-template-columns:1fr}}
+@media (max-width:600px){.bform{height:clamp(540px,82vh,640px)}}
 .bf-check{display:flex;gap:12px;align-items:flex-start;margin-top:10px;font-size:15px;color:rgba(255,236,228,.82);cursor:pointer}
 .bf-check input{width:20px;height:20px;margin-top:2px;accent-color:#fbf3ea;flex:none}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .bf-err{color:#ffd1cb;font-size:14px;font-weight:500}
-.bf-nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.bf-nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,236,228,.12);flex:none}
 .bf-nav .btn{min-height:52px;padding:0 26px}
 .bf-done,.bf-fail{display:grid;gap:10px;color:rgba(255,236,228,.85)}
 .bf-fail{margin-top:18px;padding:16px 18px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid rgba(255,209,203,.35)}
@@ -562,6 +568,7 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
           <div class="bf-bar" aria-hidden="true"><span id="bfBar"></span></div>
         </div>
 
+        <div class="bf-body" id="bfBody">
         <fieldset class="bf-step" data-step="1">
           <legend><span class="bf-q">Vad kan jag hjälpa dig med?</span><span class="bf-hint">Välj så många du vill.</span></legend>
           <div class="chips" data-name="services" data-multi="true">
@@ -646,6 +653,8 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
         </div>
         <div class="bf-fail" id="bfFail" hidden>
           <p>Förfrågan kunde inte skickas just nu. Ring mig på 040 300 00 97 eller mejla lizard26@hotmail.com så hjälper jag dig direkt.</p>
+        </div>
+
         </div>
 
         <div class="bf-nav" id="bfNav">
@@ -989,9 +998,13 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
     });
     const picked = name => [...form.querySelectorAll(`.chips[data-name="${name}"] .chip[aria-pressed="true"]`)].map(c => c.dataset.v);
     let cur = 0;
+    const body = document.getElementById('bfBody');
     function show(i){
+      const dir = i < cur ? 'back' : 'fwd';
       cur = i;
-      steps.forEach((st, k) => st.hidden = k !== i);
+      steps.forEach((st, k) => { st.hidden = k !== i; st.classList.remove('enter','back'); });
+      void steps[i].offsetWidth; steps[i].classList.add('enter'); if (dir === 'back') steps[i].classList.add('back');
+      body.scrollTop = 0;
       label.textContent = `Steg ${i + 1} av ${steps.length}`;
       bar.style.width = ((i + 1) / steps.length * 100) + '%';
       back.hidden = i === 0;
@@ -1016,7 +1029,7 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
     back.onclick = () => show(cur - 1);
     next.onclick = async () => {
       if (!valid(cur)) return;
-      if (cur < steps.length - 1) { show(cur + 1); form.scrollIntoView({block:'nearest', behavior: reduce ? 'auto' : 'smooth'}); return; }
+      if (cur < steps.length - 1) { show(cur + 1); return; }
       const payload = {
         services: picked('services'), styles: picked('styles'), size: picked('size')[0] || '', placement: form.elements['placement'].value.trim(),
         piercings: picked('piercings'), message: form.elements['message'].value.trim(), timing: picked('timing'), age: picked('age')[0] || '',
