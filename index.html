@@ -245,6 +245,49 @@ section{scroll-margin-top:80px}
 .info dd{margin:0;overflow-wrap:anywhere}
 .info a{text-decoration-color:#4a423b;text-underline-offset:3px}
 
+/* Bokningsformulär i fyra steg */
+.book{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);gap:clamp(36px,6vw,88px);align-items:start}
+@media (max-width:900px){.book{grid-template-columns:1fr}}
+.book-intro h2{font-size:clamp(44px,5.8vw,78px);margin-top:14px}
+.how{list-style:none;padding:0;margin:36px 0 0;display:grid;gap:26px}
+.how li{display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start}
+.how-n{width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,236,228,.45);display:grid;place-items:center;font:italic 400 24px/1 var(--f-display);color:#fbf3ea}
+.how h3{font-size:26px;color:#fbf3ea}
+.how p{margin-top:4px;color:rgba(255,236,228,.78);max-width:44ch}
+.book-alt{margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,236,228,.2);color:rgba(255,236,228,.75);display:grid;gap:4px}
+.book-alt a{color:#fbf3ea;text-underline-offset:3px}
+.bform{position:relative;border-radius:28px;padding:clamp(24px,3.6vw,48px);background:rgba(13,11,10,.62);border:1px solid rgba(255,236,228,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.bf-head{display:grid;gap:12px;margin-bottom:30px;font-size:15px;font-weight:500;color:rgba(255,236,228,.8)}
+.bf-bar{height:4px;border-radius:4px;background:rgba(255,236,228,.16);overflow:hidden}
+.bf-bar span{display:block;height:100%;width:25%;background:#fbf3ea;border-radius:4px;transition:width .45s cubic-bezier(.2,.7,.2,1)}
+.bf-step{border:0;margin:0;padding:0;min-width:0;display:grid;gap:14px}
+.bf-step legend{padding:0;margin-bottom:10px;display:grid;gap:6px}
+.bf-q{font:400 clamp(30px,3.2vw,42px)/1.05 var(--f-display);color:#fbf3ea}
+.bf-hint{color:rgba(255,236,228,.7);font-size:16px}
+.bf-group{display:grid;gap:14px}
+.bf-group[hidden]{display:none}
+.bf-label{display:block;margin-top:8px;font-size:15px;font-weight:600;color:#f3e7e0}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{min-height:46px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,236,228,.32);background:transparent;color:#f3e7e0;font:500 15px/1 var(--f-body);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.chip:hover{border-color:#fbf3ea}
+.chip[aria-pressed="true"]{background:#fbf3ea;border-color:#fbf3ea;color:#1a0b0b}
+.bf-input{width:100%;min-height:50px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,236,228,.25);background:rgba(13,11,10,.5);color:#fbf3ea;font:400 16px/1.4 var(--f-body)}
+.bf-input::placeholder{color:rgba(255,236,228,.4)}
+.bf-input:focus{outline:none;border-color:#fbf3ea}
+textarea.bf-input{resize:vertical;min-height:110px}
+.bf-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
+.bf-fields .full{grid-column:1/-1}
+@media (max-width:520px){.bf-fields{grid-template-columns:1fr}}
+.bf-check{display:flex;gap:12px;align-items:flex-start;margin-top:10px;font-size:15px;color:rgba(255,236,228,.82);cursor:pointer}
+.bf-check input{width:20px;height:20px;margin-top:2px;accent-color:#fbf3ea;flex:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.bf-err{color:#ffd1cb;font-size:14px;font-weight:500}
+.bf-nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.bf-nav .btn{min-height:52px;padding:0 26px}
+.bf-done,.bf-fail{display:grid;gap:10px;color:rgba(255,236,228,.85)}
+.bf-fail{margin-top:18px;padding:16px 18px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid rgba(255,209,203,.35)}
+.bform.sending #bfNext{opacity:.6;pointer-events:none}
+
 /* Sidfot: kort med räfflat glas och ordmärke i toning från vitt till rött */
 .site-foot{padding-block:0}
 .foot-card{padding-block:clamp(56px,7vw,96px) 28px;border-top:1px solid var(--line);color:#e9ddd4}
@@ -498,25 +541,118 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
   </section>
 
   <section class="sec" id="kontakt" aria-labelledby="ko-title">
-    <div class="wrap contact">
-      <div>
+    <div class="wrap book">
+      <div class="book-intro">
         <p class="eyebrow">Boka tid</p>
-        <h2 id="ko-title">Ring, mejla eller kom förbi.</h2>
-        <div class="prose">
-          <p>Berätta kort om motiv, storlek och placering så hör jag av mig så snart jag kan. Jag jobbar även utanför öppettiderna och vissa helger om vi kommer överens om det.</p>
-        </div>
-        <div class="hero-ctas" style="justify-content:flex-start">
-          <a class="btn btn-primary" href="tel:+46403000097">Ring 040 300 00 97</a>
-          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Amiralsgatan+58+Malm%C3%B6" target="_blank" rel="noopener">Hitta hit</a>
+        <h2 id="ko-title">Berätta vad du vill göra.</h2>
+        <ol class="how">
+          <li><span class="how-n">1</span><div><h3>Du svarar på fyra korta frågor</h3><p>Vad du vill göra, din idé och hur jag når dig. Det tar ett par minuter.</p></div></li>
+          <li><span class="how-n">2</span><div><h3>Jag hör av mig</h3><p>Jag läser din förfrågan och kontaktar dig så snart jag kan, på det sätt du föredrar.</p></div></li>
+          <li><span class="how-n">3</span><div><h3>Vi bokar in en tid</h3><p>Vi bestämmer en tid för konsultation eller direkt för tatueringen eller piercingen.</p></div></li>
+        </ol>
+        <div class="book-alt">
+          <p>Hellre ringa eller komma förbi?</p>
+          <p><a href="tel:+46403000097">040 300 00 97</a> · Amiralsgatan 58, Malmö</p>
         </div>
       </div>
-      <dl class="info">
-        <div><dt>Adress</dt><dd>Amiralsgatan 58, Malmö</dd></div>
-        <div><dt>Telefon</dt><dd><a href="tel:+46403000097">040 300 00 97</a><br><a href="tel:+46734003746">073 400 37 46</a></dd></div>
-        <div><dt>Mejl</dt><dd><a href="mailto:lizard26@hotmail.com">lizard26@hotmail.com</a></dd></div>
-        <div><dt>Öppet</dt><dd>Måndag till fredag 13.00 till 18.00<br><span style="color:var(--ash)">Jag är flexibel, fråga gärna om andra tider</span></dd></div>
-        <div><dt>Buss</dt><dd>32 till Karlskronaplan, 5 till Folkets Park eller Nobeltorget, 3 till Nobeltorget</dd></div>
-      </dl>
+
+      <form class="bform" id="bform" novalidate>
+        <div class="bf-head">
+          <span id="bfStepLabel">Steg 1 av 4</span>
+          <div class="bf-bar" aria-hidden="true"><span id="bfBar"></span></div>
+        </div>
+
+        <fieldset class="bf-step" data-step="1">
+          <legend><span class="bf-q">Vad kan jag hjälpa dig med?</span><span class="bf-hint">Välj så många du vill.</span></legend>
+          <div class="chips" data-name="services" data-multi="true">
+            <button type="button" class="chip" data-v="Ny tatuering">Ny tatuering</button>
+            <button type="button" class="chip" data-v="Cover up">Cover up</button>
+            <button type="button" class="chip" data-v="Fortsätta på en tatuering">Fortsätta på en tatuering</button>
+            <button type="button" class="chip" data-v="Piercing">Piercing</button>
+            <button type="button" class="chip" data-v="Konsultation">Konsultation</button>
+            <button type="button" class="chip" data-v="Något annat">Något annat</button>
+          </div>
+          <p class="bf-err" data-err="services" hidden>Välj minst ett alternativ.</p>
+        </fieldset>
+
+        <fieldset class="bf-step" data-step="2" hidden>
+          <legend><span class="bf-q">Berätta om din idé</span><span class="bf-hint">Ungefär räcker gott, vi går igenom detaljerna tillsammans.</span></legend>
+          <div class="bf-group" data-show="tattoo">
+            <p class="bf-label">Stil</p>
+            <div class="chips" data-name="styles" data-multi="true">
+              <button type="button" class="chip" data-v="Realism">Realism</button>
+              <button type="button" class="chip" data-v="Black and grey">Black and grey</button>
+              <button type="button" class="chip" data-v="Färg">Färg</button>
+              <button type="button" class="chip" data-v="Fine line">Fine line</button>
+              <button type="button" class="chip" data-v="Blackwork">Blackwork</button>
+              <button type="button" class="chip" data-v="Vet inte än">Vet inte än</button>
+            </div>
+            <p class="bf-label">Ungefärlig storlek</p>
+            <div class="chips" data-name="size">
+              <button type="button" class="chip" data-v="Liten, som ett mynt">Liten, som ett mynt</button>
+              <button type="button" class="chip" data-v="Mellan, som en handflata">Mellan, som en handflata</button>
+              <button type="button" class="chip" data-v="Stor, som en underarm">Stor, som en underarm</button>
+              <button type="button" class="chip" data-v="Helärm eller rygg">Helärm eller rygg</button>
+            </div>
+            <label class="bf-label" for="bf-placement">Var på kroppen?</label>
+            <input class="bf-input" id="bf-placement" name="placement" type="text" placeholder="Till exempel insidan av underarmen" autocomplete="off">
+          </div>
+          <div class="bf-group" data-show="piercing">
+            <p class="bf-label">Vilken piercing?</p>
+            <div class="chips" data-name="piercings" data-multi="true" id="pierceChips"></div>
+          </div>
+          <label class="bf-label" for="bf-message">Beskriv din idé (valfritt)</label>
+          <textarea class="bf-input" id="bf-message" name="message" rows="4" placeholder="Motiv, inspiration, något jag bör veta"></textarea>
+        </fieldset>
+
+        <fieldset class="bf-step" data-step="3" hidden>
+          <legend><span class="bf-q">När passar det dig?</span><span class="bf-hint">Välj det som stämmer.</span></legend>
+          <div class="chips" data-name="timing" data-multi="true">
+            <button type="button" class="chip" data-v="Så snart som möjligt">Så snart som möjligt</button>
+            <button type="button" class="chip" data-v="Vardagar dagtid">Vardagar dagtid</button>
+            <button type="button" class="chip" data-v="Vardagar efter 18">Vardagar efter 18</button>
+            <button type="button" class="chip" data-v="Helger">Helger</button>
+            <button type="button" class="chip" data-v="Ingen brådska">Ingen brådska</button>
+          </div>
+          <p class="bf-label">Är du över 18 år?</p>
+          <div class="chips" data-name="age">
+            <button type="button" class="chip" data-v="Ja, över 18">Ja, jag är över 18</button>
+            <button type="button" class="chip" data-v="Under 18, kommer med målsman">Nej, jag kommer med målsman</button>
+          </div>
+          <p class="bf-err" data-err="age" hidden>Svara på frågan om ålder.</p>
+        </fieldset>
+
+        <fieldset class="bf-step" data-step="4" hidden>
+          <legend><span class="bf-q">Hur når jag dig?</span><span class="bf-hint">Jag använder bara uppgifterna för att svara på din förfrågan.</span></legend>
+          <div class="bf-fields">
+            <div><label class="bf-label" for="bf-name">Namn</label><input class="bf-input" id="bf-name" name="name" type="text" autocomplete="name" required></div>
+            <div><label class="bf-label" for="bf-phone">Telefon</label><input class="bf-input" id="bf-phone" name="phone" type="tel" autocomplete="tel" required></div>
+            <div class="full"><label class="bf-label" for="bf-email">Mejl</label><input class="bf-input" id="bf-email" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <p class="bf-label">Hur vill du bli kontaktad?</p>
+          <div class="chips" data-name="contactPref">
+            <button type="button" class="chip" data-v="Samtal">Samtal</button>
+            <button type="button" class="chip" data-v="SMS">SMS</button>
+            <button type="button" class="chip" data-v="Mejl">Mejl</button>
+          </div>
+          <label class="bf-check"><input type="checkbox" id="bf-consent" name="consent"> <span>Jag godkänner att mina uppgifter sparas och används för att besvara min förfrågan.</span></label>
+          <input type="text" name="company" id="bf-company" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+          <p class="bf-err" data-err="contact" hidden>Fyll i namn, telefon och en giltig mejladress, och kryssa i rutan.</p>
+        </fieldset>
+
+        <div class="bf-done" id="bfDone" hidden>
+          <p class="bf-q">Tack för din förfrågan!</p>
+          <p>Jag har fått den och hör av mig så snart jag kan.</p>
+        </div>
+        <div class="bf-fail" id="bfFail" hidden>
+          <p>Förfrågan kunde inte skickas just nu. Ring mig på 040 300 00 97 eller mejla lizard26@hotmail.com så hjälper jag dig direkt.</p>
+        </div>
+
+        <div class="bf-nav" id="bfNav">
+          <button type="button" class="btn btn-ghost" id="bfBack" hidden>Tillbaka</button>
+          <button type="button" class="btn btn-light" id="bfNext">Nästa <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
     </div>
   </section>
 </main>
@@ -834,6 +970,74 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
   size();
   if (reduce) smoke(0); else requestAnimationFrame(smoke);
   addEventListener('resize', () => { size(); if (reduce) smoke(0); });
+
+  // Bokningsformulär
+  (() => {
+    const form = document.getElementById('bform'); if (!form) return;
+    const steps = [...form.querySelectorAll('.bf-step')];
+    const label = document.getElementById('bfStepLabel'), bar = document.getElementById('bfBar');
+    const back = document.getElementById('bfBack'), next = document.getElementById('bfNext');
+    const pierceNames = ['Öronsnibb','Helix','Tragus','Conch','Rook','Daith','Industrial','Näsvinge','Septum','Läpp','Smiley','Tunga','Ögonbryn','Navel','Bröstvårta','Annan'];
+    document.getElementById('pierceChips').innerHTML = pierceNames.map(n => `<button type="button" class="chip" data-v="${n}">${n}</button>`).join('');
+    form.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+    form.addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      const group = c.parentElement, multi = group.dataset.multi === 'true';
+      if (!multi) group.querySelectorAll('.chip').forEach(x => x !== c && x.setAttribute('aria-pressed', 'false'));
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      form.querySelectorAll('.bf-err').forEach(x => x.hidden = true);
+    });
+    const picked = name => [...form.querySelectorAll(`.chips[data-name="${name}"] .chip[aria-pressed="true"]`)].map(c => c.dataset.v);
+    let cur = 0;
+    function show(i){
+      cur = i;
+      steps.forEach((st, k) => st.hidden = k !== i);
+      label.textContent = `Steg ${i + 1} av ${steps.length}`;
+      bar.style.width = ((i + 1) / steps.length * 100) + '%';
+      back.hidden = i === 0;
+      next.innerHTML = i === steps.length - 1 ? 'Skicka förfrågan' : 'Nästa <span aria-hidden="true">→</span>';
+      if (i === 1){
+        const sv = picked('services');
+        const tattoo = sv.some(v => v !== 'Piercing'), pierce = sv.includes('Piercing');
+        form.querySelector('[data-show="tattoo"]').hidden = !tattoo;
+        form.querySelector('[data-show="piercing"]').hidden = !pierce;
+      }
+    }
+    const err = k => { form.querySelector(`[data-err="${k}"]`).hidden = false; return false; };
+    function valid(i){
+      if (i === 0 && !picked('services').length) return err('services');
+      if (i === 2 && !picked('age').length) return err('age');
+      if (i === 3){
+        const name = form.elements['name'].value.trim(), phone = form.elements['phone'].value.trim(), email = form.elements['email'].value.trim();
+        if (!name || phone.replace(/\D/g,'').length < 7 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !form.elements['consent'].checked) return err('contact');
+      }
+      return true;
+    }
+    back.onclick = () => show(cur - 1);
+    next.onclick = async () => {
+      if (!valid(cur)) return;
+      if (cur < steps.length - 1) { show(cur + 1); form.scrollIntoView({block:'nearest', behavior: reduce ? 'auto' : 'smooth'}); return; }
+      const payload = {
+        services: picked('services'), styles: picked('styles'), size: picked('size')[0] || '', placement: form.elements['placement'].value.trim(),
+        piercings: picked('piercings'), message: form.elements['message'].value.trim(), timing: picked('timing'), age: picked('age')[0] || '',
+        name: form.elements['name'].value.trim(), phone: form.elements['phone'].value.trim(), email: form.elements['email'].value.trim(),
+        contactPref: picked('contactPref')[0] || '', company: form.elements['company'].value
+      };
+      form.classList.add('sending'); document.getElementById('bfFail').hidden = true;
+      try {
+        const r = await fetch('/api/booking', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+        if (!r.ok) throw new Error(r.status);
+        steps.forEach(st => st.hidden = true);
+        document.getElementById('bfNav').hidden = true;
+        document.getElementById('bfDone').hidden = false;
+        label.textContent = 'Klart'; bar.style.width = '100%';
+      } catch (e) {
+        document.getElementById('bfFail').hidden = false;
+      } finally { form.classList.remove('sending'); }
+    };
+    form.addEventListener('submit', e => e.preventDefault());
+    show(0);
+  })();
 })();
 </script>
 </body>
