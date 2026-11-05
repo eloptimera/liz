@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#0d0b0a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Familjen+Grotesk:wght@400;500;600&family=Permanent+Marker&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Familjen+Grotesk:wght@400;500;600&family=Permanent+Marker&display=swap">
 <style>
 /* Layout: studion som scen. Böjd bildvägg i heron, därefter en polaroidvägg,
    en process uppnålad med röd tråd och lugna redaktionella sektioner. Rött bara för bokning, nålar och tråd. */
@@ -25,7 +25,7 @@
   --tape:rgba(220,214,204,.42);
   --red:#c41919;
   --red-hi:#de2a22;
-  --f-display:"Gloock", "Iowan Old Style", "Times New Roman", serif;
+  --f-display:"Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
   --f-body:"Familjen Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-hand:"Permanent Marker", "Marker Felt", "Comic Sans MS", cursive;
   --gutter:max(16px, env(safe-area-inset-left, 0px));
@@ -40,7 +40,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 img{max-width:100%;display:block}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--bone);outline-offset:3px;border-radius:4px}
-h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.04;letter-spacing:-.015em;text-wrap:balance;margin:0}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.fade,h1,h2{background:linear-gradient(180deg,#f6f1ea 0%,#e7dfd4 45%,#8f877d 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-bottom:.06em}
 p{margin:0}
 .wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
 .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);font-weight:500}
@@ -67,11 +68,24 @@ p{margin:0}
 
 /* Hero */
 .hero{position:relative;overflow:hidden;padding-block:64px 64px;isolation:isolate}
-#smoke{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+/* Färgfade bakom heron: suddiga fält i rött, svart och vitt bakom räfflat glas */
+.aura{position:absolute;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:var(--ink)}
+.aura i{position:absolute;display:block;border-radius:50%;filter:blur(90px);will-change:transform}
+.aura .b1{width:58vw;height:46vw;left:-14vw;bottom:-10vw;background:var(--red);opacity:.55;animation:drift1 22s ease-in-out infinite alternate}
+.aura .b2{width:46vw;height:40vw;right:-12vw;bottom:-4vw;background:#7d0d0d;opacity:.7;animation:drift2 26s ease-in-out infinite alternate}
+.aura .b3{width:26vw;height:34vw;left:40vw;bottom:4vw;background:var(--bone);opacity:.16;animation:drift3 18s ease-in-out infinite alternate}
+.aura .b4{width:30vw;height:30vw;left:22vw;top:18%;background:#000;opacity:.9;animation:drift2 30s ease-in-out infinite alternate-reverse}
+.aura .b5{width:22vw;height:22vw;right:16vw;top:30%;background:var(--red);opacity:.28;animation:drift3 24s ease-in-out infinite alternate-reverse}
+.aura::before{content:"";position:absolute;inset:0;z-index:1;background:repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,rgba(0,0,0,.10) 1px 3px,transparent 3px 16px)}
+.aura::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,var(--ink) 0%,rgba(13,11,10,.82) 30%,rgba(13,11,10,.15) 62%,rgba(13,11,10,.4) 88%,var(--ink) 100%)}
+@keyframes drift1{to{transform:translate3d(14vw,-6vw,0) scale(1.15)}}
+@keyframes drift2{to{transform:translate3d(-12vw,-8vw,0) scale(.9)}}
+@keyframes drift3{to{transform:translate3d(-8vw,-10vw,0) scale(1.25)}}
+@media (prefers-reduced-motion:reduce){.aura i{animation:none}}
 .hero::after{content:"";position:absolute;inset:auto 0 0;height:120px;background:linear-gradient(transparent,var(--ink));z-index:-1;pointer-events:none}
 .hero-copy{text-align:center;display:grid;justify-items:center;gap:22px}
-.hero h1{font-size:clamp(46px,8vw,108px)}
-.hero h1 em{font-style:normal;color:var(--ash)}
+.hero h1{font-size:clamp(52px,9vw,124px)}
+.hero h1 em{font-style:italic}
 .hero .lede{max-width:600px;color:#d3cabe;font-size:clamp(16px,1.7vw,18px)}
 
 .arc-stage{position:relative;margin-top:44px;perspective:1200px;perspective-origin:50% 45%;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;--cw:200px;height:calc(var(--cw) * 1.62)}
@@ -106,7 +120,7 @@ section{scroll-margin-top:80px}
 .photo img{width:100%;height:100%;object-fit:cover}
 .about-photo{aspect-ratio:5/6}
 .prose{display:grid;gap:18px;color:#d8cfc3;max-width:58ch}
-.prose h2{font-size:clamp(40px,5.2vw,68px);color:var(--bone);margin-bottom:6px}
+.prose h2{font-size:clamp(44px,5.6vw,74px);margin-bottom:6px}
 .sig{display:flex;align-items:center;gap:14px;margin-top:10px}
 .sig img{width:54px;height:54px;border-radius:50%;object-fit:cover}
 .sig b{display:block;font:400 30px/1 var(--f-hand);color:var(--bone)}
@@ -206,7 +220,8 @@ section{scroll-margin-top:80px}
 .info dd{margin:0;overflow-wrap:anywhere}
 .info a{text-decoration-color:#4a423b;text-underline-offset:3px}
 
-footer{border-top:1px solid var(--line);padding-block:28px;color:var(--ash);font-size:14px}
+footer{border-top:1px solid var(--line);padding-block:28px 0;color:var(--ash);font-size:14px;overflow:hidden}
+.wordmark{display:block;margin-top:28px;font:400 clamp(64px,15.5vw,230px)/.82 var(--f-display);letter-spacing:-.02em;white-space:nowrap;text-align:center;translate:0 .12em;background:linear-gradient(180deg,#f2ece3 0%,#6d665d 70%,var(--ink) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 /* Bildvisare */
@@ -272,7 +287,7 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
 
 <main id="top">
   <section class="hero" aria-labelledby="hero-title">
-    <canvas id="smoke" aria-hidden="true"></canvas>
+    <div class="aura" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i></div>
     <div class="wrap hero-copy">
       <p class="eyebrow">Tatuering och piercing i Malmö sedan 2005</p>
       <h1 id="hero-title">Tatueringar som<br>håller <em>hela livet.</em></h1>
@@ -478,6 +493,7 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
     <span>© 2026 Liz Tattoo & Piercing, Malmö</span>
     <span>Medlem i Sveriges Registrerade Tatuerare</span>
   </div>
+  <div class="wrap"><span class="wordmark" aria-hidden="true">Liz Tattoo</span></div>
 </footer>
 
 <dialog class="lb" id="lb" aria-label="Bildvisare">
@@ -692,56 +708,6 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
   drawThread(); addEventListener('resize', drawThread);
   if (document.fonts) document.fonts.ready.then(drawThread);
 
-  // Rök som stiger bakom bildväggen
-  const cv = document.getElementById('smoke'), ctx = cv.getContext('2d');
-  const hero = cv.parentElement;
-  let CW = 0, CH = 0, band = 0, parts = [];
-  const sprite = (() => {
-    const s = document.createElement('canvas'); s.width = s.height = 256; const x = s.getContext('2d');
-    for (let i = 0; i < 46; i++){
-      const px = 128 + (Math.random() - .5) * 120, py = 128 + (Math.random() - .5) * 120, pr = 30 + Math.random() * 70;
-      const gr = x.createRadialGradient(px,py,0,px,py,pr);
-      gr.addColorStop(0,'rgba(255,255,255,.09)'); gr.addColorStop(1,'rgba(255,255,255,0)');
-      x.fillStyle = gr; x.beginPath(); x.arc(px,py,pr,0,Math.PI*2); x.fill();
-    }
-    return s;
-  })();
-  function size(){
-    const dpr = Math.min(devicePixelRatio || 1, 1.5);
-    CW = cv.clientWidth; CH = cv.clientHeight; cv.width = CW * dpr; cv.height = CH * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    const sr = stage.getBoundingClientRect(), hr = hero.getBoundingClientRect();
-    band = sr.top - hr.top + sr.height * 0.55;
-  }
-  function spawn(age){
-    const left = Math.random() < .5;
-    const x = left ? CW * (.04 + Math.random() * .3) : CW * (.66 + Math.random() * .3);
-    return { x, y: band + (Math.random() - .3) * 80, life: age ?? 0, span: 9000 + Math.random() * 7000,
-             r: 70 + Math.random() * 80, grow: 1.6 + Math.random() * 1.6, vy: .018 + Math.random() * .022,
-             sway: Math.random() * Math.PI * 2, drift: (left ? 1 : -1) * (.004 + Math.random() * .008),
-             rot: Math.random() * Math.PI * 2, vr: (Math.random() - .5) * .00025, a: .5 + Math.random() * .5 };
-  }
-  function seed(){ parts = Array.from({length: 46}, () => { const p = spawn(); p.life = Math.random() * p.span; return p; }); }
-  let lastS = performance.now();
-  function smoke(now){
-    const dt = Math.min(now - lastS, 50); lastS = now;
-    ctx.clearRect(0,0,CW,CH);
-    for (const p of parts){
-      p.life += dt;
-      if (p.life > p.span) Object.assign(p, spawn());
-      const k = p.life / p.span;
-      const y = p.y - p.life * p.vy;
-      const x = p.x + p.life * p.drift + Math.sin(p.sway + p.life * .0006) * 30;
-      const r = p.r * (1 + k * p.grow);
-      ctx.globalAlpha = Math.sin(Math.PI * k) * p.a;
-      ctx.save(); ctx.translate(x, y); ctx.rotate(p.rot + p.life * p.vr);
-      ctx.drawImage(sprite, -r, -r, r * 2, r * 2); ctx.restore();
-    }
-    ctx.globalAlpha = 1;
-    if (!reduce) requestAnimationFrame(smoke);
-  }
-  size(); seed();
-  if (reduce) smoke(performance.now()); else requestAnimationFrame(smoke);
-  addEventListener('resize', () => { size(); if (reduce) smoke(performance.now()); });
 })();
 </script>
 </body>
