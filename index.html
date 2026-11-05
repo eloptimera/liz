@@ -90,6 +90,11 @@ p{margin:0}
 .trust span{display:inline-flex;align-items:center;gap:8px}
 .trust span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red)}
 
+/* Rund, svävande header */
+.top{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;padding-block:12px;padding-left:var(--gutter);padding-right:var(--gutter-r);pointer-events:none}
+.top .wrap{pointer-events:auto;max-width:var(--wrap);min-height:62px;padding-left:clamp(18px,2.4vw,28px);padding-right:8px;border:1px solid rgba(239,232,222,.12);border-radius:999px;background:color-mix(in srgb,var(--ink) 72%,transparent);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);box-shadow:0 12px 30px -14px rgba(0,0,0,.8)}
+.top .btn-sm{min-height:46px;padding:0 20px}
+
 /* Hero som i referensen: svart topp, grått sken bakom bildbågen, rök på sidorna */
 .hero{padding-block:48px 80px;background:radial-gradient(ellipse 78% 58% at 50% 100%,#4a4744 0%,#2d2b29 36%,#161514 66%,var(--ink) 100%)}
 .hero::after{display:none}
