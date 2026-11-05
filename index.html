@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liz Tattoo & Piercing</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Tatuering och piercing i Malmö sedan 2005. Liz Tattoo & Piercing på Amiralsgatan 58 – över 20 års erfarenhet i alla stilar. Drop-in vid möjlighet.">
+<meta name="theme-color" content="#0e0c0b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: mörk studio-scen. Centrerad serif-hero med böjd bildkarusell som "vägg",
+   därefter lugna redaktionella sektioner i två kolumner. Rött används bara för bokning. */
+:root{
+  --ink:#0e0c0b;          /* bakgrund, varm svart som bläck */
+  --skin:#171412;         /* ytor */
+  --line:#2a2521;         /* hårlinjer */
+  --bone:#efe8de;         /* text */
+  --ash:#a39a8e;          /* sekundär text */
+  --red:#c41919;          /* Liz röda, endast bokning och små markörer */
+  --red-hi:#de2a22;
+  --f-display:"Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
+  --f-body:"Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  --wrap:1180px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--bone);font:400 16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bone);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.02;letter-spacing:-.01em;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);font-weight:500}
+
+/* Knappar */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:46px;padding:0 22px;border-radius:999px;font:500 15px/1 var(--f-body);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:var(--red-hi)}
+.btn-ghost{border-color:#4a423b;color:var(--bone);background:transparent}
+.btn-ghost:hover{border-color:var(--bone)}
+.btn-sm{min-height:38px;padding:0 16px;font-size:14px}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--ink) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;border-bottom:1px solid var(--line)}
+.logo{font:600 14px/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.logo span{color:var(--red)}
+.nav{display:flex;gap:28px;font-size:14px;color:var(--ash)}
+.nav a{text-decoration:none;transition:color .2s}
+.nav a:hover{color:var(--bone)}
+@media (max-width:900px){.nav{display:none}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding-block:72px 64px;isolation:isolate}
+#smoke{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hero-copy{text-align:center;display:grid;justify-items:center;gap:22px}
+.hero h1{font-size:clamp(46px,8.4vw,112px)}
+.hero h1 em{font-style:italic;color:var(--ash)}
+.hero .lede{max-width:560px;color:#cfc6ba;font-size:clamp(15px,1.6vw,17px)}
+
+.arc-stage{position:relative;margin-top:48px;height:clamp(250px,30vw,380px);perspective:1100px;perspective-origin:50% 40%;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.arc-stage.dragging{cursor:grabbing}
+.arc{position:absolute;inset:0;transform-style:preserve-3d}
+.card{position:absolute;top:50%;left:50%;width:var(--cw);aspect-ratio:4/5;margin:0;padding:0;border:0;background:var(--skin);border-radius:22px;overflow:hidden;cursor:inherit;will-change:transform;box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+.card img{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.arc-stage{--cw:clamp(150px,19vw,250px)}
+.arc-fade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,var(--ink) 0,transparent 9%,transparent 91%,var(--ink) 100%);z-index:5}
+.arc-ctrl{position:absolute;top:50%;translate:0 -50%;z-index:6;width:44px;height:44px;border-radius:50%;border:1px solid #4a423b;background:color-mix(in srgb,var(--ink) 70%,transparent);color:var(--bone);display:grid;place-items:center;cursor:pointer}
+.arc-ctrl:hover{border-color:var(--bone)}
+.arc-ctrl.prev{left:var(--gutter)}.arc-ctrl.next{right:var(--gutter-r)}
+.arc-ctrl svg{width:18px;height:18px}
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:40px}
+.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-top:36px;font-size:13px;color:var(--ash)}
+.trust span{display:inline-flex;align-items:center;gap:8px}
+.trust span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red)}
+
+/* Sektioner */
+section{scroll-margin-top:80px}
+.sec{padding-block:clamp(72px,10vw,128px);border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;margin-bottom:48px;max-width:720px}
+.sec-head h2{font-size:clamp(38px,5.4vw,68px)}
+.sec-head p{color:var(--ash);max-width:60ch}
+
+/* Stilar */
+.styles{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:var(--f-display);font-size:clamp(30px,4.6vw,58px);line-height:1.15}
+.styles li{list-style:none;color:#6f665c;transition:color .25s}
+.styles li:hover{color:var(--bone)}
+.styles li:nth-child(3n+1){color:var(--bone)}
+.styles{padding:0;margin:0}
+
+/* Om Liz */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,88px);align-items:center}
+.split > *{min-width:0}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+.photo{border-radius:22px;overflow:hidden;background:var(--skin)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.about-photo{aspect-ratio:5/6}
+.prose{display:grid;gap:18px;color:#d6cdc1;max-width:58ch}
+.prose h2{font-size:clamp(38px,5vw,64px);color:var(--bone);margin-bottom:6px}
+.sig{display:flex;align-items:center;gap:14px;margin-top:10px}
+.sig img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.sig b{display:block;font-weight:600;color:var(--bone)}
+.sig small{color:var(--ash);font-size:13px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:14px}
+.facts div{background:var(--ink);padding:18px}
+.facts b{display:block;font:400 34px/1 var(--f-display);color:var(--bone)}
+.facts span{font-size:13px;color:var(--ash)}
+@media (max-width:480px){.facts{grid-template-columns:1fr}}
+
+/* Portfolio */
+.gallery{columns:4 220px;column-gap:14px}
+.gallery button{display:block;width:100%;margin:0 0 14px;padding:0;border:0;background:var(--skin);border-radius:16px;overflow:hidden;cursor:zoom-in;break-inside:avoid}
+.gallery img{width:100%;height:auto;transition:transform .5s,filter .3s;filter:saturate(.92)}
+.gallery button:hover img{transform:scale(1.03);filter:none}
+
+/* Piercing */
+.checklist{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
+.checklist li{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
+.checklist li::before{content:"";flex:none;width:7px;height:7px;margin-top:.62em;border-radius:50%;border:1px solid var(--ash)}
+.pierce-photo{aspect-ratio:1/1}
+
+/* Priser */
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+@media (max-width:720px){.prices{grid-template-columns:1fr}}
+.price{display:flex;align-items:baseline;gap:12px;padding:15px 0;border-bottom:1px solid var(--line);font-size:16px}
+.price .dots{flex:1;border-bottom:1px dotted #3d3631;translate:0 -4px}
+.price b{font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.price-note{margin-top:28px;color:var(--ash);font-size:14px;max-width:62ch}
+.tattoo-price{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;margin-bottom:44px;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--skin)}
+.tattoo-price h3{font-size:clamp(28px,3.2vw,38px)}
+.tattoo-price p{color:var(--ash);max-width:52ch;margin-top:6px;font-size:15px}
+
+/* Skötselråd */
+.tabs{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;margin-bottom:32px}
+.tabs button{min-height:38px;padding:0 18px;border-radius:999px;border:0;background:transparent;color:var(--ash);font:500 14px var(--f-body);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--bone);color:var(--ink)}
+.care{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+@media (max-width:820px){.care{grid-template-columns:1fr}}
+.care details{border-bottom:1px solid var(--line)}
+.care details:first-of-type,.care details:nth-of-type(2){border-top:1px solid var(--line)}
+@media (max-width:820px){.care details:nth-of-type(2){border-top:0}}
+.care summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;cursor:pointer;font:400 26px/1.1 var(--f-display)}
+.care summary::-webkit-details-marker{display:none}
+.care summary::after{content:"+";font:300 22px var(--f-body);color:var(--ash);transition:rotate .25s}
+.care details[open] summary::after{rotate:45deg}
+.care details p{padding:0 0 22px;color:#cfc6ba;font-size:15px;max-width:60ch}
+.care .warn{color:#f0a39c}
+.heal{margin-top:44px}
+.heal h3{font-size:28px;margin-bottom:12px}
+.heal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0 40px}
+.heal-grid div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.heal-grid span{color:var(--ash);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* Studion */
+.studio{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:14px}
+.studio figure{margin:0;position:relative;border-radius:18px;overflow:hidden;background:var(--skin)}
+.studio figure:first-child{grid-row:span 2}
+.studio img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.studio figcaption{position:absolute;left:14px;bottom:12px;font-size:13px;padding:6px 12px;border-radius:999px;background:color-mix(in srgb,var(--ink) 75%,transparent)}
+@media (max-width:720px){.studio{grid-template-columns:1fr}.studio figure:first-child{grid-row:auto}}
+
+/* Kontakt */
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(32px,6vw,88px)}
+.contact > *{min-width:0}
+@media (max-width:820px){.contact{grid-template-columns:1fr}}
+.contact h2{font-size:clamp(44px,6.4vw,84px)}
+.contact .prose{margin-top:20px}
+.info{display:grid;gap:0;border-top:1px solid var(--line)}
+.info div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);font-size:15px}
+.info dt{color:var(--ash);font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+.info dd{margin:0;overflow-wrap:anywhere}
+.info a{text-decoration-color:#4a423b;text-underline-offset:3px}
+
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--ash);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* Lightbox */
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(92vw,900px);max-height:92vh}
+dialog.lb::backdrop{background:rgba(8,7,6,.88);backdrop-filter:blur(6px)}
+dialog.lb img{max-height:82vh;width:auto;margin:0 auto;border-radius:14px}
+dialog.lb p{text-align:center;color:var(--ash);font-size:14px;margin-top:12px}
+dialog.lb .close{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:var(--gutter-r);width:44px;height:44px;border-radius:50%;border:1px solid #4a423b;background:var(--ink);color:var(--bone);font-size:22px;cursor:pointer}
+
+/* Intro-rörelse */
+@media (prefers-reduced-motion:no-preference){
+  .hero-copy > *{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  .hero-copy > *:nth-child(2){animation-delay:.08s}
+  .hero-copy > *:nth-child(3){animation-delay:.16s}
+  @keyframes rise{from{opacity:.001;translate:0 16px}to{opacity:1;translate:0 0}}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top">Liz Tattoo <span>&</span> Piercing</a>
+    <nav class="nav" aria-label="Huvudmeny">
+      <a href="#om">Om Liz</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#piercing">Piercing</a>
+      <a href="#priser">Priser</a>
+      <a href="#skotselrad">Skötselråd</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#kontakt">Boka tid</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <canvas id="smoke" aria-hidden="true"></canvas>
+    <div class="wrap hero-copy">
+      <p class="eyebrow">Tatuering & piercing i Malmö sedan 2005</p>
+      <h1 id="hero-title">Tatueringar som<br>håller <em>hela livet.</em></h1>
+      <p class="lede">Över 20 års erfarenhet i alla stilar, från fine line till realism och cover ups. Personligt bemötande på Amiralsgatan 58. Drop-in när det finns plats.</p>
+    </div>
+
+    <div class="arc-stage" id="arcStage" aria-roledescription="karusell" aria-label="Exempel på Liz arbeten">
+      <div class="arc" id="arc"></div>
+      <div class="arc-fade"></div>
+      <button class="arc-ctrl prev" type="button" aria-label="Föregående bild" id="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="arc-ctrl next" type="button" aria-label="Nästa bild" id="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="wrap">
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#kontakt">Boka tatuering</a>
+        <a class="btn btn-ghost" href="#portfolio">Se portfolio</a>
+      </div>
+      <div class="trust">
+        <span>Medlem i Sveriges Registrerade Tatuerare</span>
+        <span>Godkänd av Miljövårdsnämnden</span>
+        <span>Veganskt bläck</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="om" aria-labelledby="om-title">
+    <div class="wrap split">
+      <div class="photo about-photo"><img src="assets/img/liz-working.webp" alt="Liz tatuerar i studion på Amiralsgatan" loading="lazy" width="900" height="1076"></div>
+      <div class="prose">
+        <p class="eyebrow">Om Liz</p>
+        <h2 id="om-title">Din idé. Hennes hand.</h2>
+        <p>Liz har drivit studion i Malmö sedan 2005. Hon lyssnar in vad du vill ha och gör om idén till ett motiv som fungerar tekniskt och sitter bra på kroppen i många år.</p>
+        <p>Hon tatuerar gärna freehand direkt på huden, så att motivet följer kroppens former. Första tatueringen eller fortsättning på ett större projekt, du får hjälp hela vägen från skiss till eftervård.</p>
+        <p>Studion är liten och lugn, med hög hygienstandard. Kunder kommer från hela Skåne och från utlandet.</p>
+        <div class="facts">
+          <div><b>2005</b><span>Studion öppnade</span></div>
+          <div><b>20+</b><span>År av erfarenhet</span></div>
+          <div><b>SRT</b><span>Registrerad tatuerare</span></div>
+        </div>
+        <div class="sig">
+          <img src="assets/img/liz-portrait.webp" alt="" width="217" height="218" loading="lazy">
+          <div><b>Lis</b><small>Tatuerare och piercare, Liz Tattoo & Piercing</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="stilar" aria-labelledby="stilar-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Stilar</p>
+        <h2 id="stilar-title" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Stilar</h2>
+      </div>
+      <ul class="styles">
+        <li>Realism</li><li>Black 'n Grey</li><li>Color tattoo</li><li>Fine line</li><li>Blackwork</li><li>Cover ups</li><li>New school</li><li>Old school</li><li>Tribals</li><li>Horror</li><li>Custom design</li><li>Freehand</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="portfolio" aria-labelledby="pf-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Portfolio</p>
+        <h2 id="pf-title">Ett urval av Liz arbeten</h2>
+        <p>Porträtt, djur, helärmar, tecknat och små minnen. Klicka för att se bilden större.</p>
+      </div>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="piercing" aria-labelledby="pi-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Piercing</p>
+        <h2 id="pi-title">Sterilt, tryggt och rätt placerat.</h2>
+        <p>Alla piercingar görs med engångsnålar, sterila verktyg och smycken i titan. Liz hjälper dig hitta en placering som passar din anatomi, och säger till om en piercing inte passar dig.</p>
+        <p>Många piercingar kan göras med kort varsel. Walk-in går bra.</p>
+        <ul class="checklist" aria-label="Innan din piercing">
+          <li>Var frisk och utvilad</li>
+          <li>Ät ordentligt innan</li>
+          <li>Ta med giltig legitimation</li>
+          <li>Max en vän som sällskap</li>
+          <li>Under 18? Ta med målsman</li>
+        </ul>
+      </div>
+      <div class="photo pierce-photo"><img src="assets/img/piercing-collage.webp" alt="Collage med näs-, öron-, läpp- och septumpiercingar" loading="lazy" width="900" height="899"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="priser" aria-labelledby="pr-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Prislista</p>
+        <h2 id="pr-title">Priser</h2>
+      </div>
+      <div class="tattoo-price">
+        <div>
+          <h3>Tatuering</h3>
+          <p>Priset beror på storlek, placering och detaljnivå. Boka en konsultation så får du ett pris innan vi börjar.</p>
+        </div>
+        <a class="btn btn-ghost" href="#kontakt">Boka konsultation</a>
+      </div>
+      <div class="prices" id="prices"></div>
+      <p class="price-note">Alla piercingpriser inkluderar smycke i titan, både ringar och stavar. Hör av dig om du har frågor.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="skotselrad" aria-labelledby="sk-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Eftervård</p>
+        <h2 id="sk-title">Skötselråd</h2>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Välj skötselråd">
+        <button role="tab" id="tab-t" aria-controls="care-t" aria-selected="true" type="button">Tatuering</button>
+        <button role="tab" id="tab-p" aria-controls="care-p" aria-selected="false" type="button">Piercing</button>
+      </div>
+
+      <div id="care-t" role="tabpanel" aria-labelledby="tab-t">
+        <div class="care">
+          <details open><summary>Direkt efter</summary><p>Tatueringen täcks med plastfolie. Ta bort den efter ett par timmar, den får gärna sitta kvar över natten. Se tatueringen som ett ytligt skrubbsår: håll den ren och rör den inte med orena fingrar.</p></details>
+          <details open><summary>Första tvätten</summary><p>Tvätta försiktigt med ljummet vatten och tvål och skölj bort tvålresterna. Smörj sedan med Helosan, Bepanthen eller Pegasus Tattoo Creme. Andra produkter fungerar också, det beror på hudtyp.</p></details>
+          <details><summary>Daglig vård, 7–10 dagar</summary><p>Tvätta 1–2 gånger per dag med tvål och vatten. Smörj 3–6 gånger per dag tills sårskorporna har försvunnit. Riv inte av skorporna och undvik smällar, skav och att klia.</p></details>
+          <details><summary>Läketid och tips</summary><p>Första läkningen tar 1–2 veckor. Undvik direkt sol i 1–2 månader och saltvatten och klorbad de första två veckorna. Tatueringen kan se gråaktig ut några dagar innan färgen kommer tillbaka.</p></details>
+        </div>
+      </div>
+
+      <div id="care-p" role="tabpanel" aria-labelledby="tab-p" hidden>
+        <div class="care">
+          <details open><summary>Dagliga rutiner</summary><p>Rör inte piercingen när du inte rengör den, kroppen behöver tid att anpassa sig. <span class="warn">För mycket tvättande kan förstöra en piercing. Låt den vara ifred.</span></p></details>
+          <details open><summary>Piercing på yttre hud</summary><p>Lös upp sårskorpor med ljummet vatten eller koksaltlösning och torka med en våt tops. Använd koksaltlösning morgon och kväll. Undvik att sova på piercingen och att den fastnar i kläder, hörlurar eller hår.</p></details>
+          <details><summary>Orala piercingar</summary><p>Utsidan sköts som yttre hud. Skölj insidan med alkoholfritt munvatten morgon och kväll efter tandborstning, och med vatten eller saltlösning efter mat, dryck och snus. Undvik stark mat, byt tandborste och sug gärna på is mot svullnad.</p></details>
+          <details><summary>Intimpiercingar</summary><p>Läker relativt snabbt. Använd intimtvål med lämpligt pH och koksaltlösning, högst 1–2 gånger om dagen. Använd kondom de första 4–6 veckorna.</p></details>
+        </div>
+        <div class="heal">
+          <h3>Genomsnittliga läketider</h3>
+          <div class="heal-grid" id="heal"></div>
+          <p class="price-note">Alla läker olika snabbt. Tiderna är uppskattningar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="studion" aria-labelledby="st-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Studion</p>
+        <h2 id="st-title">Liten, lugn och nära Amiralen</h2>
+      </div>
+      <div class="studio">
+        <figure><img src="assets/img/studio-chair.webp" alt="Tatueringsstolen i studion" loading="lazy" width="900" height="671"><figcaption>Tatueringsstolen</figcaption></figure>
+        <figure><img src="assets/img/studio-waiting.webp" alt="Väntrummet med flash på väggarna" loading="lazy" width="900" height="671"><figcaption>Väntrummet</figcaption></figure>
+        <figure><img src="assets/img/studio-reception.webp" alt="Receptionen" loading="lazy" width="900" height="671"><figcaption>Receptionen</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="kontakt" aria-labelledby="ko-title">
+    <div class="wrap contact">
+      <div>
+        <p class="eyebrow">Boka tid</p>
+        <h2 id="ko-title">Ring, mejla eller kom förbi.</h2>
+        <div class="prose">
+          <p>Berätta kort om motiv, storlek och placering så återkommer Liz så snart hon kan. Tider utanför öppettiderna och vissa helger går att boka efter överenskommelse.</p>
+        </div>
+        <div class="hero-ctas" style="justify-content:flex-start">
+          <a class="btn btn-primary" href="tel:+46403000097">Ring 040-300 00 97</a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Amiralsgatan+58+Malm%C3%B6" target="_blank" rel="noopener">Hitta hit</a>
+        </div>
+      </div>
+      <dl class="info">
+        <div><dt>Adress</dt><dd>Amiralsgatan 58, Malmö</dd></div>
+        <div><dt>Telefon</dt><dd><a href="tel:+46403000097">040-300 00 97</a><br><a href="tel:+46734003746">073-400 37 46</a></dd></div>
+        <div><dt>E-post</dt><dd><a href="mailto:lizard26@hotmail.com">lizard26@hotmail.com</a></dd></div>
+        <div><dt>Öppet</dt><dd>Mån–fre 13–18<br><span style="color:var(--ash)">Flexibelt, andra tider efter överenskommelse</span></dd></div>
+        <div><dt>Buss</dt><dd>32 Karlskronaplan, 5 Folkets Park/Nobeltorget, 3 Nobeltorget</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Liz Tattoo & Piercing, Malmö</span>
+    <span>Medlem i Sveriges Registrerade Tatuerare</span>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Förstorad bild">
+  <button class="close" type="button" aria-label="Stäng" id="lbClose">×</button>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+</dialog>
+
+<script>
+(() => {
+  const IMG = 'assets/img/';
+  // Karusellens ordning: starkaste verken i mitten av första vyn
+  const works = [
+    ['biomech','Biomekaniska helärmar'],
+    ['elephant','Elefant med ballong, akvarell'],
+    ['viktor','Barnporträtt i black and grey'],
+    ['tiger','Tigerögon över ryggen'],
+    ['rottweiler','Rottweilerporträtt i färg'],
+    ['space-sleeve','Rymdärm i färg'],
+    ['robot','Robot med ballong, fine line'],
+    ['pennywise','Horrorporträtt'],
+    ['piercing-brow','Ögonbrynspiercingar'],
+    ['acm','Klubbmärke, riven hud-effekt'],
+    ['duck','Tecknad karaktär i färg'],
+    ['stewie','Tecknad karaktär'],
+    ['sonic','Spelkaraktär med akvarell'],
+    ['piercing-smiley','Smiley-piercing']
+  ];
+
+  // Galleri
+  const gal = document.getElementById('gallery');
+  works.forEach(([f,c]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.src = IMG+f+'.webp'; b.dataset.cap = c;
+    b.innerHTML = `<img src="${IMG+f}.webp" alt="${c}" loading="lazy">`;
+    gal.appendChild(b);
+  });
+
+  // Priser
+  const prices = [['Öronsnibb',250],['Conch',450],['Rook',450],['Näsvinge',475],['Helix / Forward helix',475],['Tragus',485],['Ögonbryn',500],['Läpp',550],['Daith',550],['Tunga',575],['Navel',585],['Smiley',600],['Septum',600],['Earl / Bridge',600],['Bröstvårta',600],['Industrial',700],['Kvinnlig genital',800]];
+  document.getElementById('prices').innerHTML = prices.map(([n,p]) => `<div class="price"><span>${n}</span><span class="dots"></span><b>${p} kr</b></div>`).join('');
+
+  const heal = [['Öronsnibbar','4–6 veckor'],['Brosk, öra','4 mån–1 år'],['Navel','4 mån–1 år'],['Bröstvårtor','4–8 mån'],['Läppar','3 mån'],['Näsvinge / septum','3 mån'],['Ögonbryn','3 mån'],['Earl / Bridge','4 mån'],['Tunga','4–6 veckor'],['Intim','4–6 veckor']];
+  document.getElementById('heal').innerHTML = heal.map(([n,t]) => `<div>${n}<span>${t}</span></div>`).join('');
+
+  // Flikar
+  const tabs = [...document.querySelectorAll('[role=tab]')];
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => { const on = x===t; x.setAttribute('aria-selected', on); document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
+  }));
+
+  // Lightbox
+  const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+  const openLb = (src, cap) => { lbImg.src = src; lbImg.alt = cap; lbCap.textContent = cap; lb.showModal(); };
+  document.getElementById('lbClose').onclick = () => lb.close();
+  lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+  gal.addEventListener('click', e => { const b = e.target.closest('button'); if (b) openLb(b.dataset.src, b.dataset.cap); });
+
+  // Böjd karusell
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.getElementById('arcStage'), arc = document.getElementById('arc');
+  const cards = works.map(([f,c]) => {
+    const b = document.createElement('button');
+    b.className = 'card'; b.type = 'button'; b.setAttribute('aria-label', 'Visa större: ' + c);
+    b.innerHTML = `<img src="${IMG+f}.webp" alt="${c}" draggable="false">`;
+    b.dataset.src = IMG+f+'.webp'; b.dataset.cap = c;
+    arc.appendChild(b); return b;
+  });
+  let offset = 0, target = 0, hover = false, last = performance.now();
+  const auto = reduce ? 0 : 0.035; // px per ms
+  function gap(){ return cards[0].offsetWidth * 1.1; }
+  function layout(){
+    const W = stage.clientWidth, cw = cards[0].offsetWidth, g = gap(), total = g * cards.length;
+    cards.forEach((c, i) => {
+      let x = ((i*g - offset) % total + total) % total;
+      if (x > total/2) x -= total;
+      const t = x / (W/2), a = Math.min(Math.abs(t), 1.4);
+      const rot = -Math.sign(t) * Math.min(a, 1.15) * 30;
+      const z = a*a*110;
+      const s = 0.92 + a*0.1;
+      c.style.transform = `translate(-50%,-50%) translate3d(${x}px,0,${z}px) rotateY(${rot}deg) scale(${s})`;
+      c.style.visibility = Math.abs(x) > W/2 + cw ? 'hidden' : 'visible';
+      c.tabIndex = Math.abs(t) < .9 ? 0 : -1;
+    });
+  }
+  function tick(now){
+    const dt = Math.min(now - last, 50); last = now;
+    if (!hover && !drag) target += auto * dt;
+    offset += (target - offset) * (reduce ? 1 : 0.12);
+    layout();
+    requestAnimationFrame(tick);
+  }
+  let drag = null;
+  stage.addEventListener('pointerdown', e => {
+    if (e.target.closest('.arc-ctrl')) return;
+    drag = { x: e.clientX, t: target, moved: 0, id: e.pointerId, card: e.target.closest('.card') };
+    stage.setPointerCapture(e.pointerId); stage.classList.add('dragging');
+  });
+  stage.addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x; drag.moved = Math.max(drag.moved, Math.abs(dx));
+    target = drag.t - dx * 1.2;
+  });
+  const end = () => {
+    if (!drag) return;
+    if (drag.moved < 6 && drag.card) openLb(drag.card.dataset.src, drag.card.dataset.cap);
+    drag = null; stage.classList.remove('dragging');
+  };
+  stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
+  stage.addEventListener('mouseenter', () => hover = true);
+  stage.addEventListener('mouseleave', () => hover = false);
+  stage.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.classList.contains('card')) openLb(e.target.dataset.src, e.target.dataset.cap);
+  });
+  document.getElementById('prev').onclick = () => { target -= gap(); };
+  document.getElementById('next').onclick = () => { target += gap(); };
+  addEventListener('resize', layout);
+  layout(); requestAnimationFrame(tick);
+
+  // Rök
+  const cv = document.getElementById('smoke'), ctx = cv.getContext('2d');
+  let W = 0, H = 0, puffs = [];
+  function size(){
+    const r = devicePixelRatio > 1 ? 1.5 : 1;
+    W = cv.clientWidth; H = cv.clientHeight; cv.width = W*r; cv.height = H*r; ctx.setTransform(r,0,0,r,0,0);
+  }
+  function seed(){
+    puffs = Array.from({length: 26}, () => {
+      const side = Math.random() < .5 ? 0 : 1;
+      return { x: side ? W*(.72+Math.random()*.32) : W*(-.04+Math.random()*.32), y: H*(.25+Math.random()*.7),
+               r: 80+Math.random()*180, vx:(Math.random()-.5)*.06, vy: -(.04+Math.random()*.08), a: .025+Math.random()*.035, red: Math.random()<.18 };
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for (const p of puffs){
+      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+      const col = p.red ? '196,25,25' : '214,204,190';
+      g.addColorStop(0, `rgba(${col},${p.a})`); g.addColorStop(1, `rgba(${col},0)`);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      if (!reduce){ p.x += p.vx; p.y += p.vy; p.r += .03; if (p.y + p.r < 0){ p.y = H + p.r*.5; p.r = 80+Math.random()*180; } }
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  size(); seed(); draw();
+  addEventListener('resize', () => { size(); seed(); if (reduce) draw(); });
+})();
+</script>
+</body>
+</html>
