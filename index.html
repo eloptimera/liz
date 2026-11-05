@@ -257,11 +257,13 @@ section{scroll-margin-top:80px}
 .how p{margin-top:4px;color:rgba(255,236,228,.78);max-width:44ch}
 .book-alt{margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,236,228,.2);color:rgba(255,236,228,.75);display:grid;gap:4px}
 .book-alt a{color:#fbf3ea;text-underline-offset:3px}
-.bform{position:relative;display:flex;flex-direction:column;height:clamp(560px,74vh,660px);border-radius:28px;padding:clamp(24px,3.6vw,48px);background:rgba(13,11,10,.62);border:1px solid rgba(255,236,228,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.bform{position:relative;display:flex;flex-direction:column;border-radius:28px;padding:clamp(24px,3.6vw,48px);background:rgba(13,11,10,.62);border:1px solid rgba(255,236,228,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
 .bf-head{flex:none;display:grid;gap:12px;margin-bottom:26px;font-size:15px;font-weight:500;color:rgba(255,236,228,.8)}
 .bf-bar{height:4px;border-radius:4px;background:rgba(255,236,228,.16);overflow:hidden}
 .bf-bar span{display:block;height:100%;width:25%;background:#fbf3ea;border-radius:4px;transition:width .45s cubic-bezier(.2,.7,.2,1)}
-.bf-body{position:relative;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin-inline:-6px;padding-inline:6px;scrollbar-width:thin;scrollbar-color:rgba(255,236,228,.3) transparent}
+.bf-body{display:grid}
+.bf-body > *{grid-area:1/1;min-width:0}
+.bf-step:not(.active),.bf-body > .bf-done:not(.active){visibility:hidden;pointer-events:none}
 .bf-step{border:0;margin:0;padding:0 0 4px;min-width:0;display:grid;gap:14px;align-content:start}
 @media (prefers-reduced-motion:no-preference){.bf-step.enter{animation:bfIn .4s cubic-bezier(.2,.7,.2,1) both}.bf-step.enter.back{animation-name:bfInBack}}
 @keyframes bfIn{from{opacity:0;translate:24px 0}to{opacity:1;translate:0 0}}
@@ -275,22 +277,31 @@ section{scroll-margin-top:80px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 .chip{min-height:46px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,236,228,.32);background:transparent;color:#f3e7e0;font:500 15px/1 var(--f-body);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .chip:hover{border-color:#fbf3ea}
+.chips.sm{gap:8px}
+.chips.sm .chip{min-height:38px;padding:0 15px;font-size:14px}
 .chip[aria-pressed="true"]{background:#fbf3ea;border-color:#fbf3ea;color:#1a0b0b}
 .bf-input{width:100%;min-height:50px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,236,228,.25);background:rgba(13,11,10,.5);color:#fbf3ea;font:400 16px/1.4 var(--f-body)}
 .bf-input::placeholder{color:rgba(255,236,228,.4)}
 .bf-input:focus{outline:none;border-color:#fbf3ea}
-textarea.bf-input{resize:vertical;min-height:110px}
+textarea.bf-input{resize:none;min-height:96px}
 .bf-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
 .bf-fields .full{grid-column:1/-1}
 @media (max-width:520px){.bf-fields{grid-template-columns:1fr}}
-@media (max-width:600px){.bform{height:clamp(540px,82vh,640px)}}
-.bf-check{display:flex;gap:12px;align-items:flex-start;margin-top:10px;font-size:15px;color:rgba(255,236,228,.82);cursor:pointer}
-.bf-check input{width:20px;height:20px;margin-top:2px;accent-color:#fbf3ea;flex:none}
+
+.bf-check{display:flex;gap:14px;align-items:center;margin-top:12px;padding:14px 16px;border:1px solid rgba(255,236,228,.28);border-radius:14px;font-size:15px;line-height:1.45;color:#f3e7e0;cursor:pointer;transition:border-color .2s,background .2s}
+.bf-check:hover{border-color:#fbf3ea}
+.bf-check:has(input:checked){border-color:#fbf3ea;background:rgba(251,243,234,.08)}
+.bf-check input{appearance:none;-webkit-appearance:none;flex:none;width:28px;height:28px;margin:0;border:2px solid #fbf3ea;border-radius:8px;background:transparent;cursor:pointer;display:grid;place-items:center;transition:background .15s}
+.bf-check input::after{content:"";width:8px;height:14px;border:solid #1a0b0b;border-width:0 3px 3px 0;rotate:45deg;translate:0 -2px;scale:0;transition:scale .15s}
+.bf-check input:checked{background:#fbf3ea}
+.bf-check input:checked::after{scale:1}
+.bf-check input:focus-visible{outline:2px solid #fbf3ea;outline-offset:3px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .bf-err{color:#ffd1cb;font-size:14px;font-weight:500}
 .bf-nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,236,228,.12);flex:none}
 .bf-nav .btn{min-height:52px;padding:0 26px}
-.bf-done,.bf-fail{display:grid;gap:10px;color:rgba(255,236,228,.85)}
+.bf-done{display:grid;gap:10px;align-content:center;color:rgba(255,236,228,.85)}
+.bf-fail{display:grid;gap:10px;color:rgba(255,236,228,.85)}
 .bf-fail{margin-top:18px;padding:16px 18px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid rgba(255,209,203,.35)}
 .bform.sending #bfNext{opacity:.6;pointer-events:none}
 
@@ -582,7 +593,7 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
           <p class="bf-err" data-err="services" hidden>Välj minst ett alternativ.</p>
         </fieldset>
 
-        <fieldset class="bf-step" data-step="2" hidden>
+        <fieldset class="bf-step" data-step="2">
           <legend><span class="bf-q">Berätta om din idé</span><span class="bf-hint">Ungefär räcker gott, vi går igenom detaljerna tillsammans.</span></legend>
           <div class="bf-group" data-show="tattoo">
             <p class="bf-label">Stil</p>
@@ -606,13 +617,11 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
           </div>
           <div class="bf-group" data-show="piercing">
             <p class="bf-label">Vilken piercing?</p>
-            <div class="chips" data-name="piercings" data-multi="true" id="pierceChips"></div>
+            <div class="chips sm" data-name="piercings" data-multi="true" id="pierceChips"></div>
           </div>
-          <label class="bf-label" for="bf-message">Beskriv din idé (valfritt)</label>
-          <textarea class="bf-input" id="bf-message" name="message" rows="4" placeholder="Motiv, inspiration, något jag bör veta"></textarea>
         </fieldset>
 
-        <fieldset class="bf-step" data-step="3" hidden>
+        <fieldset class="bf-step" data-step="3">
           <legend><span class="bf-q">När passar det dig?</span><span class="bf-hint">Välj det som stämmer.</span></legend>
           <div class="chips" data-name="timing" data-multi="true">
             <button type="button" class="chip" data-v="Så snart som möjligt">Så snart som möjligt</button>
@@ -627,9 +636,11 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
             <button type="button" class="chip" data-v="Under 18, kommer med målsman">Nej, jag kommer med målsman</button>
           </div>
           <p class="bf-err" data-err="age" hidden>Svara på frågan om ålder.</p>
+          <label class="bf-label" for="bf-message">Något mer jag bör veta? (valfritt)</label>
+          <textarea class="bf-input" id="bf-message" name="message" rows="3" placeholder="Motiv, inspiration, tidigare tatueringar i området"></textarea>
         </fieldset>
 
-        <fieldset class="bf-step" data-step="4" hidden>
+        <fieldset class="bf-step" data-step="4">
           <legend><span class="bf-q">Hur når jag dig?</span><span class="bf-hint">Jag använder bara uppgifterna för att svara på din förfrågan.</span></legend>
           <div class="bf-fields">
             <div><label class="bf-label" for="bf-name">Namn</label><input class="bf-input" id="bf-name" name="name" type="text" autocomplete="name" required></div>
@@ -646,15 +657,13 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
           <input type="text" name="company" id="bf-company" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
           <p class="bf-err" data-err="contact" hidden>Fyll i namn, telefon och en giltig mejladress, och kryssa i rutan.</p>
         </fieldset>
-
-        <div class="bf-done" id="bfDone" hidden>
+        <div class="bf-done" id="bfDone">
           <p class="bf-q">Tack för din förfrågan!</p>
           <p>Jag har fått den och hör av mig så snart jag kan.</p>
         </div>
+        </div>
         <div class="bf-fail" id="bfFail" hidden>
           <p>Förfrågan kunde inte skickas just nu. Ring mig på 040 300 00 97 eller mejla lizard26@hotmail.com så hjälper jag dig direkt.</p>
-        </div>
-
         </div>
 
         <div class="bf-nav" id="bfNav">
@@ -995,26 +1004,29 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
       if (!multi) group.querySelectorAll('.chip').forEach(x => x !== c && x.setAttribute('aria-pressed', 'false'));
       c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
       form.querySelectorAll('.bf-err').forEach(x => x.hidden = true);
+      if (group.dataset.name === 'services') groups();
     });
+    function groups(){
+      const sv = picked('services');
+      const tattoo = !sv.length || sv.some(v => v !== 'Piercing'), pierce = !sv.length || sv.includes('Piercing');
+      form.querySelector('[data-show="tattoo"]').hidden = !tattoo;
+      form.querySelector('[data-show="piercing"]').hidden = !pierce;
+    }
     const picked = name => [...form.querySelectorAll(`.chips[data-name="${name}"] .chip[aria-pressed="true"]`)].map(c => c.dataset.v);
     let cur = 0;
     const body = document.getElementById('bfBody');
     function show(i){
       const dir = i < cur ? 'back' : 'fwd';
       cur = i;
-      steps.forEach((st, k) => { st.hidden = k !== i; st.classList.remove('enter','back'); });
+      steps.forEach((st, k) => { const on = k === i; st.classList.toggle('active', on); st.inert = !on; st.classList.remove('enter','back'); });
       void steps[i].offsetWidth; steps[i].classList.add('enter'); if (dir === 'back') steps[i].classList.add('back');
-      body.scrollTop = 0;
+      form.querySelectorAll('.bf-err').forEach(x => x.hidden = true);
+      document.getElementById('bfFail').hidden = true;
       label.textContent = `Steg ${i + 1} av ${steps.length}`;
       bar.style.width = ((i + 1) / steps.length * 100) + '%';
       back.hidden = i === 0;
       next.innerHTML = i === steps.length - 1 ? 'Skicka förfrågan' : 'Nästa <span aria-hidden="true">→</span>';
-      if (i === 1){
-        const sv = picked('services');
-        const tattoo = sv.some(v => v !== 'Piercing'), pierce = sv.includes('Piercing');
-        form.querySelector('[data-show="tattoo"]').hidden = !tattoo;
-        form.querySelector('[data-show="piercing"]').hidden = !pierce;
-      }
+
     }
     const err = k => { form.querySelector(`[data-err="${k}"]`).hidden = false; return false; };
     function valid(i){
@@ -1040,16 +1052,17 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
       try {
         const r = await fetch('/api/booking', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
         if (!r.ok) throw new Error(r.status);
-        steps.forEach(st => st.hidden = true);
+        steps.forEach(st => { st.classList.remove('active'); st.inert = true; });
         document.getElementById('bfNav').hidden = true;
-        document.getElementById('bfDone').hidden = false;
+        document.getElementById('bfDone').classList.add('active'); document.getElementById('bfDone').inert = false;
         label.textContent = 'Klart'; bar.style.width = '100%';
       } catch (e) {
         document.getElementById('bfFail').hidden = false;
       } finally { form.classList.remove('sending'); }
     };
     form.addEventListener('submit', e => e.preventDefault());
-    show(0);
+    document.getElementById('bfDone').inert = true;
+    groups(); show(0);
   })();
 })();
 </script>
