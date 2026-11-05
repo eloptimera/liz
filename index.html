@@ -139,12 +139,23 @@ section{scroll-margin-top:80px}
 
 
 /* Stilar på röd toning, från svart till rött och tillbaka utan synliga band */
-#stilar{position:relative;isolation:isolate;border-top-color:transparent;background:linear-gradient(180deg,rgb(13,11,10) 0.00%,rgb(16,11,10) 4.17%,rgb(24,12,11) 8.33%,rgb(37,12,12) 12.50%,rgb(54,13,14) 16.67%,rgb(74,14,15) 20.83%,rgb(95,16,17) 25.00%,rgb(117,17,19) 29.17%,rgb(137,18,20) 33.33%,rgb(154,19,22) 37.50%,rgb(167,19,23) 41.67%,rgb(175,20,24) 45.83%,rgb(178,20,24) 50.00%,rgb(175,20,24) 54.17%,rgb(167,19,23) 58.33%,rgb(154,19,22) 62.50%,rgb(137,18,20) 66.67%,rgb(117,17,19) 70.83%,rgb(96,16,17) 75.00%,rgb(74,14,15) 79.17%,rgb(54,13,14) 83.33%,rgb(37,12,12) 87.50%,rgb(24,12,11) 91.67%,rgb(16,11,10) 95.83%,rgb(13,11,10) 100.00%)}
-#stilar::before{content:"";position:absolute;inset:0;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.07;mix-blend-mode:overlay;pointer-events:none}
+#stilar,#kontakt{position:relative;isolation:isolate;border-top-color:transparent;background:linear-gradient(180deg,rgb(13,11,10) 0.00%,rgb(16,11,10) 4.17%,rgb(24,12,11) 8.33%,rgb(37,12,12) 12.50%,rgb(54,13,14) 16.67%,rgb(74,14,15) 20.83%,rgb(95,16,17) 25.00%,rgb(117,17,19) 29.17%,rgb(137,18,20) 33.33%,rgb(154,19,22) 37.50%,rgb(167,19,23) 41.67%,rgb(175,20,24) 45.83%,rgb(178,20,24) 50.00%,rgb(175,20,24) 54.17%,rgb(167,19,23) 58.33%,rgb(154,19,22) 62.50%,rgb(137,18,20) 66.67%,rgb(117,17,19) 70.83%,rgb(96,16,17) 75.00%,rgb(74,14,15) 79.17%,rgb(54,13,14) 83.33%,rgb(37,12,12) 87.50%,rgb(24,12,11) 91.67%,rgb(16,11,10) 95.83%,rgb(13,11,10) 100.00%)}
+#stilar::before,#kontakt::before{content:"";position:absolute;inset:0;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.07;mix-blend-mode:overlay;pointer-events:none}
 #stilar + .sec{border-top-color:transparent}
-#stilar .eyebrow{color:rgba(255,236,228,.72)}
+#stilar .eyebrow,#kontakt .eyebrow{color:rgba(255,236,228,.72)}
 #stilar .styles li{color:rgba(255,236,228,.42)}
 #stilar .styles li:nth-child(3n+1),#stilar .styles li:hover{color:#fbf3ea}
+#kontakt h2{background:linear-gradient(180deg,#fffaf5 0%,#f6e3de 55%,#e9b8b0 100%);-webkit-background-clip:text;background-clip:text}
+#kontakt .prose{color:#f6e8e2}
+#kontakt .info{border-top-color:rgba(255,236,228,.2)}
+#kontakt .info div{border-bottom-color:rgba(255,236,228,.2)}
+#kontakt .info dt{color:rgba(255,236,228,.66)}
+#kontakt .info dd span{color:rgba(255,236,228,.72)!important}
+#kontakt .info a{text-decoration-color:rgba(255,236,228,.45)}
+#kontakt .btn-primary{background:#fbf3ea;color:#1a0b0b}
+#kontakt .btn-primary:hover{background:#fff}
+#kontakt .btn-ghost{border-color:rgba(255,236,228,.5)}
+#kontakt .btn-ghost:hover{border-color:#fff}
 
 /* Polaroidväggen */
 .board{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3.4vw,44px) clamp(16px,2.6vw,34px);padding-top:10px}
@@ -229,9 +240,27 @@ section{scroll-margin-top:80px}
 .info dd{margin:0;overflow-wrap:anywhere}
 .info a{text-decoration-color:#4a423b;text-underline-offset:3px}
 
-footer{border-top:1px solid var(--line);padding-block:28px 0;color:var(--ash);font-size:14px;overflow:hidden}
-.wordmark{display:block;margin-top:28px;font:400 clamp(64px,15.5vw,230px)/.82 var(--f-display);letter-spacing:-.02em;white-space:nowrap;text-align:center;translate:0 .12em;background:linear-gradient(180deg,#f2ece3 0%,#6d665d 70%,var(--ink) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+/* Sidfot: kort med räfflat glas och ordmärke i toning från vitt till rött */
+.site-foot{padding-block:clamp(24px,4vw,48px)}
+.foot-card{position:relative;isolation:isolate;overflow:hidden;border-radius:clamp(20px,2.4vw,32px);padding:clamp(32px,5vw,72px) clamp(22px,5vw,72px) clamp(24px,3vw,36px);background:radial-gradient(120% 90% at 0% 100%,rgba(196,25,25,.42),transparent 60%),radial-gradient(90% 80% at 100% 0%,rgba(122,12,14,.5),transparent 65%),linear-gradient(135deg,#1b0d0c 0%,#110b0a 55%,#1d0a0b 100%);border:1px solid rgba(255,236,228,.08);color:#e9ddd4}
+.foot-card::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,rgba(0,0,0,.14) 1px 3px,transparent 3px 14px);pointer-events:none}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.6fr);gap:clamp(36px,6vw,96px)}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr}}
+.foot-mark{display:block;font:400 clamp(64px,9vw,128px)/.88 var(--f-display);letter-spacing:-.02em;background:linear-gradient(180deg,#ffffff 0%,#f7e4df 30%,#e06a5e 70%,#c41919 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-bottom:.08em}
+.foot-tag{display:block;margin-top:10px;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,236,228,.6)}
+.foot-brand p{margin-top:26px;max-width:36ch;font-size:17px;color:#e9ddd4}
+.foot-btn{margin-top:28px;border-color:rgba(255,236,228,.35);color:#fbf3ea}
+.foot-btn:hover{border-color:#fff}
+.foot-cols{display:grid;grid-template-columns:1fr 1.2fr;gap:32px}
+@media (max-width:520px){.foot-cols{grid-template-columns:1fr}}
+.foot-cols > div{min-width:0}
+.foot-h{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,236,228,.55);margin-bottom:18px}
+.foot-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:16px}
+.foot-cols a{text-decoration:none;transition:color .2s}
+.foot-cols a:hover{color:#fff}
+.foot-cols li{overflow-wrap:anywhere}
+.foot-cols small{display:block;color:rgba(255,236,228,.55);font-size:14px}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;margin-top:clamp(40px,5vw,64px);padding-top:22px;border-top:1px solid rgba(255,236,228,.12);font-size:13px;color:rgba(255,236,228,.5)}
 
 /* Bildvisare */
 dialog.lb{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--bone);overflow:hidden}
@@ -497,12 +526,48 @@ dialog.lb::backdrop{background:rgba(8,7,6,.94)}
   </section>
 </main>
 
-<footer>
+<footer class="site-foot">
   <div class="wrap">
-    <span>© 2026 Liz Tattoo & Piercing, Malmö</span>
-    <span>Medlem i Sveriges Registrerade Tatuerare</span>
+    <div class="foot-card">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <span class="foot-mark">Liz Tattoo</span>
+          <span class="foot-tag">Tattoo &amp; Piercing · Malmö sedan 2005</span>
+          <p>Tatuering och piercing på Amiralsgatan 58. Jag tar emot både bokningar och drop in när jag har tid.</p>
+          <a class="btn btn-ghost foot-btn" href="#kontakt">Hör av dig <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="foot-cols">
+          <nav aria-label="Sidfot">
+            <p class="foot-h">Sidor</p>
+            <ul>
+              <li><a href="#om">Om mig</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#process">Så går det till</a></li>
+              <li><a href="#piercing">Piercing</a></li>
+              <li><a href="#priser">Priser</a></li>
+              <li><a href="#skotselrad">Skötselråd</a></li>
+              <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+          </nav>
+          <div>
+            <p class="foot-h">Kontakt</p>
+            <ul>
+              <li>Lis, Liz Tattoo &amp; Piercing</li>
+              <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Amiralsgatan+58+Malm%C3%B6" target="_blank" rel="noopener">Amiralsgatan 58, Malmö</a></li>
+              <li><a href="tel:+46403000097">040 300 00 97</a></li>
+              <li><a href="tel:+46734003746">073 400 37 46</a></li>
+              <li><a href="mailto:lizard26@hotmail.com">lizard26@hotmail.com</a></li>
+              <li>Måndag till fredag<small>13.00 till 18.00, andra tider efter överenskommelse</small></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Liz Tattoo &amp; Piercing, Malmö</span>
+        <span>Medlem i Sveriges Registrerade Tatuerare · Godkänd av Miljövårdsnämnden</span>
+      </div>
+    </div>
   </div>
-  <div class="wrap"><span class="wordmark" aria-hidden="true">Liz Tattoo</span></div>
 </footer>
 
 <dialog class="lb" id="lb" aria-label="Bildvisare">
